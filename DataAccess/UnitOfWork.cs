@@ -8,8 +8,8 @@ namespace DataAccess
 {
     public class UnitOfWork : IAsyncDisposable, IUnitOfWork
     {
-        private PopulationAndHouseholdDataEntities context = new PopulationAndHouseholdDataEntities
-            (new DbContextOptions<PopulationAndHouseholdDataEntities>());
+        private PopulationAndHouseholdDataContext context = new PopulationAndHouseholdDataContext
+            (new DbContextOptions<PopulationAndHouseholdDataContext>());
   
         public UnitOfWork()
         {

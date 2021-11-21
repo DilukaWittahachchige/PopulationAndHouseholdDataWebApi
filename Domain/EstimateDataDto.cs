@@ -1,18 +1,12 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EF.Models
+namespace Domain
 {
-    /// <summary>
-    ///  Exam entity  
-    /// </summary>
-    public class ActualData
+    public class EstimateDataDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int StateId { get; set; }
+        public int DistrictCode { get; set; }
         public double Population { get; set; }
         public double Household { get; set; }
         public bool IsActive { get; set; }

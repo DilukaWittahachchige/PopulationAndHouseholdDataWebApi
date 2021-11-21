@@ -4,13 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EF.Models
 {
-    public class EstimateData
+    /// <summary>
+    ///  Exam entity  
+    /// </summary>
+    public class ActualDataEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int StateId { get; set; }
-        public int DistrictCode { get; set; }
         public double Population { get; set; }
         public double Household { get; set; }
         public bool IsActive { get; set; }
