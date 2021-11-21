@@ -10,12 +10,30 @@ namespace DataAccess
     {
         private PopulationAndHouseholdDataContext context = new PopulationAndHouseholdDataContext
             (new DbContextOptions<PopulationAndHouseholdDataContext>());
-  
-        public UnitOfWork()
+        //Private Field for actual data repository and estimate data repositor
+        private readonly IActualDataRepository _actualDataRepository;
+        private readonly IEstimateDataRepository _estimateDataRepository;
+
+        //Constructor Dependency Injection
+        public UnitOfWork(
+            IActualDataRepository actualDataRepository,
+            IEstimateDataRepository estimateDataRepository
+            )
         {
- 
+            this._actualDataRepository = actualDataRepository;
+            this._estimateDataRepository = estimateDataRepository;
         }
- 
+
+        public IActualDataRepository ActualDataRepository()
+        {
+            return this._actualDataRepository;
+        }
+
+        public IEstimateDataRepository EstimateDataRepository()
+        {
+            return this._estimateDataRepository;
+        }
+
         public async Task SaveAsync()
         {
             await context.SaveChangesAsync();

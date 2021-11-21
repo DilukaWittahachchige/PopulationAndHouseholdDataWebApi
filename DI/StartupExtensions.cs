@@ -1,9 +1,6 @@
 ﻿
 using DataAccess;
-using EF;
-
 using IDataAccess;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
@@ -22,8 +19,8 @@ namespace DI
 
             Configuration = builder.Build();
 
-            services.AddDbContext<PopulationAndHouseholdDataContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<PopulationAndHouseholdDataContext>(options =>
+            //   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //provides helpful error information in the development environment
             services.AddDatabaseDeveloperPageExceptionFilter();
