@@ -9,7 +9,7 @@ namespace DataAccess
     public class UnitOfWork : IAsyncDisposable, IUnitOfWork
     {
         private PopulationAndHouseholdDataContext context = new PopulationAndHouseholdDataContext
-            (new DbContextOptions<PopulationAndHouseholdDataContext>());
+            ();
         //Private Field for actual data repository and estimate data repositor
         private readonly IActualDataRepository _actualDataRepository;
         private readonly IEstimateDataRepository _estimateDataRepository;

@@ -1,14 +1,14 @@
-﻿using System;
+﻿
+using System;
 
 namespace Domain
 {
-    public class EstimateDataDto
+    public class PopulationDto
     {
         public int Id { get; set; }
         public int StateId { get; set; }
-        public int DistrictCode { get; set; }
         public double Population { get; set; }
-        public double Household { get; set; }
+        public bool IsActual { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public int CreatedUserId { get; set; }

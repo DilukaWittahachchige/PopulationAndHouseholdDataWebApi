@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopulationAndHouseholdDataWebApi", "PopulationAndHouseholdDataWebApi\PopulationAndHouseholdDataWebApi.csproj", "{C1595E17-C160-485F-B0D5-5248D3CFFA3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PopulationAndHouseholdDataWebApi", "PopulationAndHouseholdDataWebApi\PopulationAndHouseholdDataWebApi.csproj", "{C1595E17-C160-485F-B0D5-5248D3CFFA3E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{2D6B94FE-5F8E-443A-8318-56C605F43F54}"
 EndProject
@@ -30,6 +30,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{31AA2A00-B49B-4ED8-82A6-D182DC108737}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{53C32DD2-4BC3-4950-A875-BF3A8C686B8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sqlite", "Sqlite", "{70F3D96D-FB02-4E28-B040-E9B0D53CF92B}"
+	ProjectSection(SolutionItems) = preProject
+		Sqlite\populationAndHousehold.db = Sqlite\populationAndHousehold.db
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
