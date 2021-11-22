@@ -6,9 +6,6 @@ namespace EF
 {
     public class PopulationAndHouseholdDataContext : DbContext
     {
-        //public PopulationAndHouseholdDataContext(DbContextOptions<PopulationAndHouseholdDataContext> options) : base(options)
-        //{
-        //}
 
         public DbSet<ActualDataEntity> ActualData { get; set; }
         public DbSet<EstimateDataEntity> EstimateData { get; set; }
@@ -19,9 +16,7 @@ namespace EF
 
         public PopulationAndHouseholdDataContext()
         {
-            //var folder = Environment.SpecialFolder.LocalApplicationData;
-            //var path = Environment.GetFolderPath(folder);
-            //DbPath = $"{path}{System.IO.Path.DirectorySeparatorChar}populationAndHousehold.db";
+
             DbPath = AppDomain.CurrentDomain.BaseDirectory;
 
             //if "bin" is present, remove all the path starting from "bin" word

@@ -24,14 +24,22 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
         }
 
         [HttpGet("all-available")]
-        public async Task<IEnumerable<PopulationModel>> LoadAllActiveAsync()
+        public async Task<IActionResult> LoadAllActiveAsync()
         {
             var stateIdList = new List<int>();
             stateIdList.Add(1);
             stateIdList.Add(13);
+            stateIdList.Add(26);
+            stateIdList.Add(33);
 
             var populationDataList = await this._populationService.LoadAllByStateIdAsync(stateIdList);
-            return populationDataList.Select(x => ConvertToModel(x));
+
+            if (populationDataList == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(populationDataList.Select(x => ConvertToModel(x)));
         }
 
         // GET: api/<PopulationController>
@@ -75,8 +83,8 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
 
             return new PopulationModel()
             {
-                StateId = obj.StateId,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-                Population = obj.Population,  
+                StateId = obj.StateId,
+                Population = obj.Population,
             };
         }
     }

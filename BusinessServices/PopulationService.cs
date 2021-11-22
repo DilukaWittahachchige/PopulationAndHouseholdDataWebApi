@@ -26,7 +26,11 @@ namespace BusinessServices
             this._unityOfWork = unityOfWork;
         }
 
-
+        /// <summary>
+        ///  Load population details by state
+        /// </summary>
+        /// <param name="stateIdList"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<PopulationDto>> LoadAllByStateIdAsync(List<int> stateIdList)
         {
             try
@@ -37,19 +41,20 @@ namespace BusinessServices
                 var actualDataList = await this._unityOfWork.ActualDataRepository().GetAsync();
                 var estimateDataList = await this._unityOfWork.EstimateDataRepository().GetAsync();
 
-                stateIdList.ForEach(y =>
+                stateIdList?.ForEach(y =>
                 {
                     //assume no Duplicates base on given data 
-                    var actualPopulation = actualDataList.Where(x =>x.State == y)?.FirstOrDefault();
+                    var actualPopulation = actualDataList?.Where(x => x.State == y)?.FirstOrDefault();
 
                     if (actualPopulation != null)
                     {
-                        populationList.Add(ConvertToDomain(actualPopulation, true));
+                        populationList.Add(ConvertToDomainActual(actualPopulation, true));
                     }
                     else
                     {
-                       // var estimationPopulationList = estimateDataList.Where(x => x.IsActive && x.StateId == y)?.ToList();
-                         
+                        var estimatePopulation = this.LoadEstimatePopulation(estimateDataList, y);
+                        if(estimatePopulation != null)
+                            populationList.Add(estimatePopulation.Result?.FirstOrDefault());
                     }
                 });
 
@@ -62,21 +67,34 @@ namespace BusinessServices
             }
         }
 
-
-        private async Task LoadEstimationPopulation(List<EstimateDataEntity> estimationList)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="estimationList"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        private async Task<List<PopulationDto>> LoadEstimatePopulation(IEnumerable<EstimateDataEntity> estimationList, int state)
         {
 
-            var query = estimationList.GroupBy(estimate => new { estimate.District, estimate.State,estimate.Population})
-                .Select(group =>
-                      new
-                      {
-                          StateId = group.Key.State,
-                          Population = group.Sum(x => Math.Round(Convert.ToDecimal(x.Population), 2)),
-                      })
-                .OrderBy(group => group.StateId);
+            List<PopulationDto> result = estimationList?.Where(x => x.State == state)
+                 .GroupBy(l => l.State)
+                 .Select(cl => new PopulationDto
+                 {
+                     StateId = cl.First().State,
+                     IsActual = false,
+                     Population = cl.Sum(c => c.Population),
+                 })?.ToList();
+
+            return result;
         }
 
-        private static PopulationDto ConvertToDomain(ActualDataEntity obj, bool isActual)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="isActual"></param>
+        /// <returns></returns>
+        private static PopulationDto ConvertToDomainActual(ActualDataEntity obj, bool isActual)
         {
             if (obj == null)
             {
@@ -85,9 +103,31 @@ namespace BusinessServices
 
             return new PopulationDto()
             {
-                Id = obj.Id,  
-                StateId = obj.State,  
-                Population = obj.Population,  
+                Id = obj.Id,
+                StateId = obj.State,
+                Population = obj.Population,
+                IsActual = isActual,
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="isActual"></param>
+        /// <returns></returns>
+        private static PopulationDto ConvertToDomainEstimate(EstimateDataEntity obj, bool isActual)
+        {
+            if (obj == null)
+            {
+                return new PopulationDto();
+            }
+
+            return new PopulationDto()
+            {
+                Id = obj.Id,
+                StateId = obj.State,
+                Population = obj.Population,
                 IsActual = isActual,
             };
         }
