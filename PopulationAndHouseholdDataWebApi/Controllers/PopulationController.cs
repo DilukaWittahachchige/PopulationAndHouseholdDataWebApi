@@ -27,16 +27,11 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpGet("all-available")]
-        public async Task<IActionResult> LoadAllActiveAsync()
+        [HttpGet]
+        public async Task<IActionResult> LoadAllActiveAsync([ModelBinder(BinderType = typeof(CustomModelBinder))] StateQuery query)
         {
-            var stateIdList = new List<int>();
-            stateIdList.Add(1);
-            stateIdList.Add(13);
-            stateIdList.Add(26);
-            stateIdList.Add(33);
-
-            var populationDataList = await this._populationService.LoadAllByStateIdAsync(stateIdList);
+    
+            var populationDataList = await this._populationService.LoadAllByStateIdAsync(query?.State);
 
             if (populationDataList == null)
             {
