@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace PopulationAndHouseholdDataWebApi.Controllers
 {
-    [Route("api/population")]
+    [Route("api/households")]
     [ApiController]
-    public class PopulationController : ControllerBase
+    public class HouseholdController : ControllerBase
     {
 
-        private readonly IPopulationService _populationService;
+        private readonly IHouseholdService _householdService;
 
-        public PopulationController(IPopulationService populationService)
+        public HouseholdController(IHouseholdService householdService)
         {
-            this._populationService = populationService;
+            this._householdService = householdService;
         }
 
         /// <summary>
@@ -36,32 +36,32 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
             stateIdList.Add(26);
             stateIdList.Add(33);
 
-            var populationDataList = await this._populationService.LoadAllByStateIdAsync(stateIdList);
+            var householdDataList = await this._householdService.LoadAllByStateIdAsync(stateIdList);
 
-            if (populationDataList == null)
+            if (householdDataList == null)
             {
                 return NotFound();
             }
 
-            return Ok(populationDataList.Select(x => ConvertToModel(x)));
+            return Ok(householdDataList.Select(x => ConvertToModel(x)));
         }
-       
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        private static PopulationModel ConvertToModel(PopulationDto obj)
+        private static HouseholdModel ConvertToModel(HouseholdDto obj)
         {
             if (obj == null)
             {
-                return new PopulationModel();
+                return new HouseholdModel();
             }
 
-            return new PopulationModel()
+            return new HouseholdModel()
             {
                 StateId = obj.StateId,
-                Population = obj.Population,
+                Household = obj.Household,
             };
         }
     }

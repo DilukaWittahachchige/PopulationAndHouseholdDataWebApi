@@ -68,7 +68,7 @@ namespace BusinessServices
         }
 
         /// <summary>
-        /// 
+        ///  Load Estimate Population
         /// </summary>
         /// <param name="estimationList"></param>
         /// <param name="state"></param>
@@ -111,7 +111,7 @@ namespace BusinessServices
         }
 
         /// <summary>
-        /// 
+        ///  Convert To Domain Estimate
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="isActual"></param>

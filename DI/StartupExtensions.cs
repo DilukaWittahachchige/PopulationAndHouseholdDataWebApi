@@ -40,6 +40,7 @@ namespace DI
 
             //BLL DI
             services.AddTransient<IPopulationService, PopulationService>();
+            services.AddTransient<IHouseholdService, HouseholdService>();
 
             return services;
         }
