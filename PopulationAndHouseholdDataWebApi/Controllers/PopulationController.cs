@@ -28,7 +28,7 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> LoadAllActiveAsync([ModelBinder(BinderType = typeof(CustomModelBinder))] StateQuery query)
+        public async Task<IActionResult> LoadAllByStateIdAsync([ModelBinder(BinderType = typeof(CustomModelBinder))] StateQuery query)
         {
     
             var populationDataList = await this._populationService.LoadAllByStateIdAsync(query?.State);
