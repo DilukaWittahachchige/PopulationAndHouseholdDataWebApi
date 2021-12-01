@@ -50,7 +50,7 @@ namespace BusinessServices
                 stateIdList?.ForEach(y =>
                 {
                     //assume no Duplicates base on given data 
-                    var actualPopulation = actualDataList?.Where(x => x.State == y)?.FirstOrDefault();
+                    var actualPopulation = actualDataList?.Where(x => x.State == y)?.Distinct()?.FirstOrDefault();
 
                     if (actualPopulation != null)
                     {
@@ -61,7 +61,7 @@ namespace BusinessServices
                     {
                         //Load estimation population if actual population data not found
                         var estimatePopulation = this.LoadEstimatePopulation(estimateDataList, y);
-                        if(estimatePopulation != null)
+                        if(estimatePopulation != null && estimatePopulation.Result.Count > 0)
                             populationList.Add(estimatePopulation.Result?.FirstOrDefault());
                     }
                 });
@@ -83,7 +83,7 @@ namespace BusinessServices
         /// <returns></returns>
         private async Task<List<PopulationDto>> LoadEstimatePopulation(IEnumerable<EstimateDataEntity> estimationList, int state)
         {
-
+            ////return a sum of the value over all districts for the required state in the Estimates table
             List<PopulationDto> result = estimationList?.Where(x => x.State == state)
                  .GroupBy(l => l.State)
                  .Select(cl => new PopulationDto
@@ -91,7 +91,7 @@ namespace BusinessServices
                      StateId = cl.First().State,
                      IsActual = false,
                      Population = cl.Sum(c => c.Population),
-                 })?.ToList();
+                 })?.Distinct()?.ToList();
 
             return result;
         }

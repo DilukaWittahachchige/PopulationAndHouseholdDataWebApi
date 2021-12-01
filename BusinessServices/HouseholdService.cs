@@ -54,21 +54,21 @@ namespace BusinessServices
                 stateIdList?.ForEach(y =>
                 {
                     //assume no Duplicates base on given data 
-                    var actualPopulation = actualDataList?.Where(x => x.State == y)?.FirstOrDefault();
+                    var actualHousehold = actualDataList?.Where(x => x.State == y).Distinct()?.FirstOrDefault();
 
-                    if (actualPopulation != null)
+                    if (actualHousehold != null)
                     {
                         //Convert entity model to domain object model
-                        householdList.Add(ConvertToDomainActual(actualPopulation, true));
+                        householdList.Add(ConvertToDomainActual(actualHousehold, true));
                     }
                     else
                     {
                         //If actual data not available then load estimation data 
-                        var estimatePopulation = this.LoadEstimateHouseholds(estimateDataList, y);
+                        var estimateHousehold = this.LoadEstimateHouseholds(estimateDataList, y);
 
                         //If estimation data found then add into the result
-                        if (estimatePopulation != null)
-                            householdList.Add(estimatePopulation.Result?.FirstOrDefault());
+                        if (estimateHousehold != null && estimateHousehold.Result.Count > 0)
+                            householdList.Add(estimateHousehold.Result?.FirstOrDefault());
                     }
                 });
 
@@ -89,7 +89,7 @@ namespace BusinessServices
         /// <returns></returns>
         private async Task<List<HouseholdDto>> LoadEstimateHouseholds(IEnumerable<EstimateDataEntity> estimationList, int state)
         {
-
+            //return a sum of the value over all districts for the required state in the Estimates table
             List<HouseholdDto> result = estimationList?.Where(x => x.State == state)
                  .GroupBy(l => l.State)
                  .Select(cl => new HouseholdDto
@@ -97,7 +97,7 @@ namespace BusinessServices
                      StateId = cl.First().State,
                      IsActual = false,
                      Household = cl.Sum(c => c.Household),
-                 })?.ToList();
+                 })?.Distinct()?.ToList();
 
             return result;
         }
@@ -119,32 +119,10 @@ namespace BusinessServices
             {
                 Id = obj.Id,
                 StateId = obj.State,
-                Household = obj.Population,
+                Household = obj.Household,
                 IsActual = isActual,
             };
         }
-
-        /// <summary>
-        ///  Convert To Domain Estimate
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="isActual"></param>
-        /// <returns></returns>
-        private static HouseholdDto ConvertToDomainEstimate(EstimateDataEntity obj, bool isActual)
-        {
-            if (obj == null)
-            {
-                return new HouseholdDto();
-            }
-
-            return new HouseholdDto()
-            {
-                Id = obj.Id,
-                StateId = obj.State,
-                Household = obj.Population,
-                IsActual = isActual,
-            };
-        }
-
+ 
     }
 }

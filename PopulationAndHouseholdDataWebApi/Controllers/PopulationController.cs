@@ -34,7 +34,8 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
     
             var populationDataList = await this._populationService.LoadAllByStateIdAsync(query?.State);
 
-            if (populationDataList == null)
+            //If data is not found, return code 404
+            if (populationDataList == null || populationDataList.Count() == 0)
             {
                 return NotFound();
             }
@@ -56,7 +57,7 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
 
             return new PopulationModel()
             {
-                StateId = obj.StateId,
+                State = obj.StateId,
                 Population = obj.Population,
             };
         }
