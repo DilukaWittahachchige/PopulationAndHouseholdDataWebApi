@@ -2,6 +2,9 @@
 
 namespace Domain
 {
+    /// <summary>
+    ///  This class need for maintain metadata - Application common codes 
+    /// </summary>
     public class CodeDto
     {
         public int CodeId { get; set; }

@@ -4,7 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EF.Models
 {
+    /// <summary>
+    ///  UserType enum
+    /// </summary>
     public enum UserType { Admin, Coordinator, Guest, Supervisor }
+
+    /// <summary>
+    /// User Entity
+    /// </summary>
     public class User
     {
         [Key]

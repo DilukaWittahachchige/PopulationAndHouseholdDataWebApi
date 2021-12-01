@@ -1,27 +1,29 @@
-﻿using BusinessServices;
+﻿#region Directives 
+
+using BusinessServices;
 using DataAccess;
 using EF;
 using IBusinessServices;
 using IDataAccess;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
+
+#endregion
 
 namespace DI
 {
+    /// <summary>
+    ///  C# Extension class for DI registration
+    ///  DI registration class in common layer
+    /// </summary>
     public static class StartupExtensions
     {
         public static IConfigurationRoot Configuration { get; set; }
 
+        //Create extension method for DI registration
         public static IServiceCollection AddServiceScribeCore(this IServiceCollection services)
         {
-            var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-           .AddJsonFile("appsettings.json");
-
-            Configuration = builder.Build();
-
+            // EF DB Context registration
             services.AddDbContext<PopulationAndHouseholdDataContext>();
 
             //provides helpful error information in the development environment
@@ -38,7 +40,7 @@ namespace DI
             //Unity of work - DAL repos 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            //BLL DI
+            //BLL DI registration
             services.AddTransient<IPopulationService, PopulationService>();
             services.AddTransient<IHouseholdService, HouseholdService>();
 

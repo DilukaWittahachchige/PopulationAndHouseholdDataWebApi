@@ -2,31 +2,34 @@
 using IBusinessServices;
 using Microsoft.AspNetCore.Mvc;
 using PopulationAndHouseholdDataWebApi.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace PopulationAndHouseholdDataWebApi.Controllers
 {
     [Route("api/households")]
     [ApiController]
     public class HouseholdController : ControllerBase
     {
-
+        /// <summary>
+        /// IHouseholdService private field
+        /// </summary>
         private readonly IHouseholdService _householdService;
 
+        /// <summary>
+        /// Household Controller constructor 
+        /// </summary>
+        /// <param name="householdService"></param>
         public HouseholdController(IHouseholdService householdService)
         {
             this._householdService = householdService;
         }
 
         /// <summary>
-        /// 
+        /// Load All By State Id Async
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ask<IActionResult></returns>
         [HttpGet]
         public async Task<IActionResult> LoadAllByStateIdAsync([ModelBinder(BinderType = typeof(CustomModelBinder))] StateQuery query)
         {
@@ -42,7 +45,7 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
         }
 
         /// <summary>
-        /// 
+        ///  Convert To Model
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>

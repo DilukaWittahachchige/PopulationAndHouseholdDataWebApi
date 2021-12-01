@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EF.Models
 {
+    /// <summary>
+    /// EstimateData Entity
+    /// </summary>
     public class EstimateDataEntity
     {
         [Key]

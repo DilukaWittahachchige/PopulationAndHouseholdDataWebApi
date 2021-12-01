@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Common.Logger
 {
-    interface ILoggingService
+    public interface ILoggingService
     {
+        //TODO: Need to use NLog or loggly for global exception handling 
     }
 }

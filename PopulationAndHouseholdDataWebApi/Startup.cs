@@ -32,9 +32,12 @@ namespace PopulationAndHouseholdDataWebApi
                 });
             });
 
+            //Extension method for configuration
             services.AddServiceScribeCore();
 
             services.AddControllers();
+
+            //Swagger is an Interface Description Language for describing RESTful APIs expressed using JSON.
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PopulationAndHouseholdDataWebApi", Version = "v1" });
@@ -51,11 +54,16 @@ namespace PopulationAndHouseholdDataWebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PopulationAndHouseholdDataWebApi v1"));
             }
 
+            // Enable CORS
             app.UseCors("EnableCORS");
+
+            //middleware for redirecting HTTP Requests to HTTPS
             app.UseHttpsRedirection();
 
+            // Routing configuration 
             app.UseRouting();
 
+            //Authorization manage
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

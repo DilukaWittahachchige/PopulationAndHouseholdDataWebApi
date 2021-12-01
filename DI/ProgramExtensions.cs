@@ -7,13 +7,15 @@ namespace DI
 {
     public static class ProgramExtensions
     {
+        //Create extension method in common layer for create database if DB not exit
+        //Moved it to the common layer becasue avoid PL to direct access DAL
         public static void CreateDbIfNotExists(IHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
-                {
+                {   //DB initialization 
                     var context = services.GetRequiredService<PopulationAndHouseholdDataContext>();
                     DbInitializer.Initialize(context);
                 }

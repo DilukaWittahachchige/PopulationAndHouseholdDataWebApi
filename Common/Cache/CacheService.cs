@@ -8,5 +8,6 @@ namespace Common.Cache
 {
     public class CacheService
     {
+        //TODO: Need to implement Radis Cache server 
     }
 }

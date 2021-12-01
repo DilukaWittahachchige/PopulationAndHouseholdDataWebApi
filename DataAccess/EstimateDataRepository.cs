@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
+    /// <summary>
+    ///  Estimate Data Repository
+    /// </summary>
     public class EstimateDataRepository : GenericRepository<EstimateDataEntity>, IEstimateDataRepository
     {
         /// <summary>
@@ -22,7 +25,7 @@ namespace DataAccess
         }
 
         /// <summary>
-        ///  Return all active student information
+        ///  EstimateDataEntity - Return all Estimate Data
         /// </summary>
         /// <returns></returns>
         public async Task<IEnumerable<EstimateDataEntity>> LoadByStateAsync()

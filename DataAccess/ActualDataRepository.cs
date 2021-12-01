@@ -3,12 +3,13 @@ using EF.Models;
 using IDataAccess;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccess
 {
+    /// <summary>
+    /// Actual Data Repository
+    /// </summary>
     public class ActualDataRepository : GenericRepository<ActualDataEntity>, IActualDataRepository
     {
         /// <summary>
@@ -22,9 +23,9 @@ namespace DataAccess
         }
 
         /// <summary>
-        ///  Return all active student information
+        ///  Return all Actual Data from DB
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActualDataEntity</returns>
         public async Task<IEnumerable<ActualDataEntity>> LoadByStateAsync()
         {
             throw new NotImplementedException();

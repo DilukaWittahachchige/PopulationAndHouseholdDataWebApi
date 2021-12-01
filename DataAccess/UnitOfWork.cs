@@ -1,13 +1,18 @@
 ﻿using EF;
 using IDataAccess;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
 namespace DataAccess
 {
+    /// <summary>
+    ///  Unity of work class for repository
+    /// </summary>
     public class UnitOfWork : IAsyncDisposable, IUnitOfWork
     {
+        /// <summary>
+        /// create PopulationAndHouseholdData Context
+        /// </summary>
         private PopulationAndHouseholdDataContext context = new PopulationAndHouseholdDataContext
             ();
         //Private Field for actual data repository and estimate data repositor
@@ -24,16 +29,25 @@ namespace DataAccess
             this._estimateDataRepository = estimateDataRepository;
         }
 
+        /// <summary>
+        ///  Return Actual Data Repository
+        /// </summary>
+        /// <returns></returns>
         public IActualDataRepository ActualDataRepository()
         {
             return this._actualDataRepository;
         }
 
+        /// <summary>
+        ///  return estimate data repository instance
+        /// </summary>
+        /// <returns></returns>
         public IEstimateDataRepository EstimateDataRepository()
         {
             return this._estimateDataRepository;
         }
 
+        // Save DB Context changes 
         public async Task SaveAsync()
         {
             await context.SaveChangesAsync();
@@ -41,6 +55,11 @@ namespace DataAccess
 
         private bool disposed = false;
 
+        /// <summary>
+        ///  Memory management | Clear unmanage resources 
+        /// </summary>
+        /// <param name="disposing"></param>
+        /// <returns></returns>
         protected virtual async Task DisposeAsync(bool disposing)
         {
             if (!this.disposed)

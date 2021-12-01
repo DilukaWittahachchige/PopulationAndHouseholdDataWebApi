@@ -1,8 +1,8 @@
 ﻿
-using System;
 
 namespace Domain
 {
+    // Population data domain object
     public class PopulationDto
     {
         public int Id { get; set; }

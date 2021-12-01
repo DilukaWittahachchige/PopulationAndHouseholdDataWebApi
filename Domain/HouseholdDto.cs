@@ -1,7 +1,7 @@
-﻿using System;
-
+﻿ 
 namespace Domain
 {
+    // Household data domain object 
     public class HouseholdDto
     {
         public int Id { get; set; }

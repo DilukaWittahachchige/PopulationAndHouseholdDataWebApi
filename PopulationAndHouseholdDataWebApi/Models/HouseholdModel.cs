@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿ 
 namespace PopulationAndHouseholdDataWebApi.Models
 {
+    /// <summary>
+    /// Household FE Model
+    /// </summary>
     public class HouseholdModel
     {
         public int StateId { get; set; }

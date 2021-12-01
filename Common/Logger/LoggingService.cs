@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Logger
 {
-    class LoggingService
+    public class LoggingService
     {
     }
 }

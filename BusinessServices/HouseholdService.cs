@@ -1,15 +1,21 @@
-﻿using Domain;
+﻿#region Directives
+
+using Domain;
 using EF.Models;
 using IBusinessServices;
 using IDataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+
+#endregion
 
 namespace BusinessServices
 {
+    /// <summary>
+    ///  Household data business service 
+    /// </summary>
     public class HouseholdService : IHouseholdService
     {
         /// <summary>
@@ -27,7 +33,7 @@ namespace BusinessServices
         }
 
         /// <summary>
-        ///  Load population details by state
+        ///  Load household details by state
         /// </summary>
         /// <param name="stateIdList"></param>
         /// <returns></returns>
@@ -38,7 +44,11 @@ namespace BusinessServices
                 var householdList = new List<HouseholdDto>();
 
                 //TODO : Plan to create Cache repositories for PRD
+
+                //Call actual data from DB 
                 var actualDataList = await this._unityOfWork.ActualDataRepository().GetAsync();
+
+                //Call estimation data from DB
                 var estimateDataList = await this._unityOfWork.EstimateDataRepository().GetAsync();
 
                 stateIdList?.ForEach(y =>
@@ -48,11 +58,15 @@ namespace BusinessServices
 
                     if (actualPopulation != null)
                     {
+                        //Convert entity model to domain object model
                         householdList.Add(ConvertToDomainActual(actualPopulation, true));
                     }
                     else
                     {
+                        //If actual data not available then load estimation data 
                         var estimatePopulation = this.LoadEstimateHouseholds(estimateDataList, y);
+
+                        //If estimation data found then add into the result
                         if (estimatePopulation != null)
                             householdList.Add(estimatePopulation.Result?.FirstOrDefault());
                     }
@@ -68,7 +82,7 @@ namespace BusinessServices
         }
 
         /// <summary>
-        ///  Load Estimate Population
+        ///  Load Estimate Household
         /// </summary>
         /// <param name="estimationList"></param>
         /// <param name="state"></param>
@@ -89,7 +103,7 @@ namespace BusinessServices
         }
 
         /// <summary>
-        /// 
+        /// Convert household entity to Domain Actual model
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="isActual"></param>

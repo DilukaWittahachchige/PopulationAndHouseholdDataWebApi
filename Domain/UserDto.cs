@@ -2,6 +2,9 @@
 
 namespace Domain
 {
+    /// <summary>
+    ///  User data domain object
+    /// </summary>
     public class UserDto
     {
         public int UserId { get; set; }

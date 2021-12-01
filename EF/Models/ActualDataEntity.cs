@@ -1,11 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EF.Models
 {
     /// <summary>
-    ///  Exam entity  
+    /// ActualData Entity  
     /// </summary>
     public class ActualDataEntity
     {

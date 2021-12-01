@@ -2,8 +2,6 @@
 using IBusinessServices;
 using Microsoft.AspNetCore.Mvc;
 using PopulationAndHouseholdDataWebApi.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,18 +13,21 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
     [ApiController]
     public class PopulationController : ControllerBase
     {
-
+        /// <summary>
+        ///  IPopulationService private field
+        /// </summary>
         private readonly IPopulationService _populationService;
 
+        // constructor 
         public PopulationController(IPopulationService populationService)
         {
             this._populationService = populationService;
         }
 
         /// <summary>
-        /// 
+        ///  Load All population data By State Id Async
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Task<IActionResult></returns>
         [HttpGet]
         public async Task<IActionResult> LoadAllByStateIdAsync([ModelBinder(BinderType = typeof(CustomModelBinder))] StateQuery query)
         {
@@ -40,12 +41,12 @@ namespace PopulationAndHouseholdDataWebApi.Controllers
 
             return Ok(populationDataList.Select(x => ConvertToModel(x)));
         }
-       
+
         /// <summary>
-        /// 
+        /// Convert To Model
         /// </summary>
         /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <returns>PopulationModel</returns>
         private static PopulationModel ConvertToModel(PopulationDto obj)
         {
             if (obj == null)

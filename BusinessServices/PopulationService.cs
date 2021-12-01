@@ -1,15 +1,21 @@
-﻿using Domain;
+﻿#region Directives 
+
+using Domain;
 using EF.Models;
 using IBusinessServices;
 using IDataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
+#endregion
+
 namespace BusinessServices
-{
+{   
+    /// <summary>
+    ///  Population business service 
+    /// </summary>
     public class PopulationService : IPopulationService
     {
         /// <summary>
@@ -48,10 +54,12 @@ namespace BusinessServices
 
                     if (actualPopulation != null)
                     {
+                        //Convert Entity model to Domain model
                         populationList.Add(ConvertToDomainActual(actualPopulation, true));
                     }
                     else
                     {
+                        //Load estimation population if actual population data not found
                         var estimatePopulation = this.LoadEstimatePopulation(estimateDataList, y);
                         if(estimatePopulation != null)
                             populationList.Add(estimatePopulation.Result?.FirstOrDefault());
@@ -89,7 +97,7 @@ namespace BusinessServices
         }
 
         /// <summary>
-        /// 
+        ///  Convert Entity To Domain Actual
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="isActual"></param>

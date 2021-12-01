@@ -1,14 +1,17 @@
-﻿using Domain;
-using System;
+﻿#region Directives 
+using Domain;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+#endregion
 
 namespace IBusinessServices
 {
+    /// <summary>
+    ///  Population Service interface
+    /// </summary>
     public interface IPopulationService
     {
+        //Load all population data by state list
         Task<IEnumerable<PopulationDto>> LoadAllByStateIdAsync(List<int> stateIdList);
     }
 }

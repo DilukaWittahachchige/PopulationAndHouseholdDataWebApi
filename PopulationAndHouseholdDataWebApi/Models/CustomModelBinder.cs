@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PopulationAndHouseholdDataWebApi.Models
 {
+    /// <summary>
+    ///  Custom Model Binder for pass state list
+    /// </summary>
     public class CustomModelBinder : IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
